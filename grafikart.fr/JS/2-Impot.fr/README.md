@@ -18,11 +18,11 @@
 https://codesandbox.io/s/angry-cloud-z8n08
 
 
-## Ideas regarding the reverse algorithm
+## Idées concernant l'algorithme reverse
 
- - **Bruteforce**: easy but not efficient.
- - **Dichotomy**: better than bruteforce but we can do better.
- - **Mathematics**: the efficient way but it requires some reflexion.
+ - **Bruteforce**: facile mais peu efficace.
+ - **Dichotomie**: meilleur que le bruteforce mais peut mieux faire.
+ - **Mathématiques**: la manière la plus efficace mais ca demande un peu de temps de réflexion.
 
 
 ## Back to school - Reverse algorithm
