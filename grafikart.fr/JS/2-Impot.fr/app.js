@@ -17,6 +17,7 @@
  */
 
 /** 
+ * I prefer to use 'undefined' instead of 'NaN' or Number.MAX_SAFE_INTEGER
  * @const {Slice[]}
  */
 const SLICES = [
@@ -54,6 +55,9 @@ function calculateTaxes(income, parts) {
     // For each slice...
     for(const slice of SLICES) {
         let taxable = Math.min(slice.max || tempIncome, tempIncome) - (slice.min - 1)
+        if(slice.max === undefined) {
+            taxable -= 1
+        }
         taxesPerSlice.push(taxable * slice.rate)
         // the income is in the current slice, we exit
         if(tempIncome <= slice.max) {
@@ -73,23 +77,23 @@ function calculateTaxes(income, parts) {
 
 /**
  * 
- * @param {number} toSave The amount of money you would like to save after taxes
+ * @param {number} saving The amount of money you would like to save after taxes
  * @param {number} parts Number of parts based on the person's situation
  * @return {IncomeTaxes} See the key 'property' to know how much you need to make.
  */
-function reverseCalculation(toSave, parts) {
+function reverseCalculation(saving, parts) {
     // Prevent from negative and NaN values
-    toSave = Math.max(0, toSave)|| 0
+    saving = Math.max(0, saving) || 0
     parts = Math.max(parts, 1)
     const taxesPerSlice = []
     let income = 0
     let cumuledTaxes = 0
     for (const slice of SLICES) {
         let theoricalIncome = slice.max
-        const theoricalTax = Math.round((theoricalIncome - (slice.min - 1)) * slice.rate * 100) / 100
+        const theoricalTax = (theoricalIncome - (slice.min - 1)) * slice.rate
         const temp = theoricalIncome * parts - (theoricalTax + cumuledTaxes)
-        if(temp > toSave || slice.max == undefined) {
-            income = (toSave - (parts * (slice.min - 1) * slice.rate) + (parts * cumuledTaxes))/(parts - parts * slice.rate)
+        if(temp > saving || slice.max == undefined) {
+            income = (saving - (parts * (slice.min - 1) * slice.rate) + (parts * cumuledTaxes))/(parts - parts * slice.rate)
             const tax = Math.max(0, (income - (slice.min - 1)) * slice.rate)
             taxesPerSlice.push(tax)
             cumuledTaxes += tax
@@ -122,7 +126,6 @@ function showBySlices(results) {
     footer.innerHTML = ''
     for (const [index, slice] of SLICES.entries()) {
         const tr = document.createElement('tr')
-        // FIX not compatible IE (Intl.PluralRules API)
         tr.innerHTML = `<td> ${
         slice.max == undefined ? `Au dessus de ${numberFormat.format(slice.min)}` : 
         `Entre ${numberFormat.format(slice.min)} et ${numberFormat.format(slice.max)}`}
@@ -143,13 +146,13 @@ function showBySlices(results) {
     }
 }
 
-const incomeField = document.querySelector("input[name='income']")
-const taxesField = document.querySelector("input[name='taxes']")
-const afterTaxesField = document.querySelector("input[name='after']")
-const coupleField = document.querySelector("input[name='couple']")
-const childrenField = document.querySelector("input[name='children']")
+const incomeField = document.getElementById('income')
+const taxesField = document.getElementById('taxes')
+const afterTaxesField = document.getElementById('after')
+const marriedField = document.getElementById('married')
+const childrenField = document.getElementById('children')
 function perform(e) {
-    const parts = calculateParts(coupleField.checked, childrenField.valueAsNumber)
+    const parts = calculateParts(marriedField.checked, childrenField.valueAsNumber)
     let results = { taxesPerSlice: [], income: 0, taxes: 0, toPay: 0 }
     if(e.target === afterTaxesField) {
         results = reverseCalculation(afterTaxesField.valueAsNumber, parts)
@@ -164,5 +167,5 @@ function perform(e) {
 
 document.querySelector('form').addEventListener('input', perform)
 showBySlices({income: 0, taxesPerSlice: [], taxes: 0, toPay: 0, 
-    parts: calculateParts(coupleField.checked, childrenField.valueAsNumber)
+    parts: calculateParts(marriedField.checked, childrenField.valueAsNumber)
 })

@@ -27,6 +27,8 @@ https://codesandbox.io/s/angry-cloud-z8n08
 
 ## Back to school - Reverse algorithm
 
+Je suis parti sur la méthode **mathématique**. C'est fort probable que je sois passé à coté d'une solution beaucoup plus simple...
+
 
 ### Enoncé
 
@@ -133,7 +135,7 @@ Plus les nombres sont grands, plus les arrondis nous jouent des tours et rendent
  - L'API  ECMAScript Internationalization API [Intl](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl), plutôt sympa.
  - L'API [math.now.sh](https://math.now.sh) pour génerer des images de formules mathématiques LaTeX. 
  - Poser le problème mathématiquement m'a aidé à refactor le code.
- - Je suis rendu compte que je suis rouillé en mathématiques.
+ - Je suis rouillé en mathématiques.
  - On peut mettre des emojis dans les badges de [shields.io](https://shields.io).
  - C'est qu'on a besoin que d'deux cailloux pour avoir un but (avez-vous les [bases](https://youtu.be/2plxPVOI6lo?t=81) ?)
 
