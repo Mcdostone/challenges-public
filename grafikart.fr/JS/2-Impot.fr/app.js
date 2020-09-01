@@ -87,7 +87,7 @@ function reverseCalculation(saving, parts) {
     for (const slice of SLICES) {
         let theoricalIncome = slice.max
         const theoricalTax = (theoricalIncome - (slice.min - 1)) * slice.rate
-        const temp = theoricalIncome * parts - (theoricalTax + cumuledTaxes)
+        const temp = theoricalIncome * parts - (theoricalTax + cumuledTaxes) * parts
         if(temp > saving || slice.max === Number.POSITIVE_INFINITY) {
             income = (saving - (parts * (slice.min - 1) * slice.rate) + (parts * cumuledTaxes))/(parts - parts * slice.rate)
             const tax = Math.max(0, (income - (slice.min - 1)) * slice.rate)
