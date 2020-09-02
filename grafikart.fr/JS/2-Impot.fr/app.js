@@ -35,7 +35,7 @@ const SLICES = [
  */
 function calculateParts(isMarried, numberOfChildren) {
     numberOfChildren = Math.max(0, numberOfChildren) || 0
-    return (isMarried ? 2 : 1) + (numberOfChildren / 2)
+    return (isMarried ? 2 : 1) + (Math.min(numberOfChildren, 2) / 2) + Math.max(0, numberOfChildren - 2)
 }
 
 /**
