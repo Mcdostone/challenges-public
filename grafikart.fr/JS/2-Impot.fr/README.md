@@ -73,8 +73,8 @@ impot = P * (perSlice(0) + perSlice(1) + ... + perSlice(4))
 
 Maintenant l'objectif est de développer l'équation afin d'isoler `X`.
 ```
-S = P - impot
-S = P - (P * (perSlice(0) + perSlice(1) + ... + perSlice(4)))
+S = X - impot
+S = X - (P * (perSlice(0) + perSlice(1) + ... + perSlice(4)))
 ```
 
 Pour des raisons de simplifications, j'introduis la variable `x`, `x = X/P`:
